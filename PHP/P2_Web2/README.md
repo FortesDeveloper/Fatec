@@ -2,9 +2,9 @@
 
 Cadastro de Alunos.
 
-Projeto para cadastrar alunos, Prova-P2 do Curso DSM
-FATEC-Araras/SP 
-Ano 2022
+Projeto para cadastrar alunos, Prova-P2 do Curso DSM<br>
+FATEC-Araras/SP <br>
+Ano 2022<br>
 
 * Código
 * Nome
