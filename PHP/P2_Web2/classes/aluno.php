@@ -2,7 +2,7 @@
 
 include_once 'conn.php';
 
-class Pessoa
+class Aluno
 {
     private $erro = ""; //Guarda o erro
     private $DB   = "";
@@ -13,21 +13,30 @@ class Pessoa
     private $sql_ins = 'INSERT INTO ALUNO(ID_ALUNO,
                                           CPF,
                                           NOME,
-                                          FONE) 
+                                          FONE,
+                                          EMAIL) 
                                    VALUES(NEXT VALUE FOR ALUNO_SEQ,
                                           :CPF,
                                           :NOME,
-                                          :FONE)';
+                                          :FONE,
+                                          :EMAIL)';
 
     private $sql_upd = 'UPDATE  ALUNO 
                            SET  CPF    = :CPF,
                                 NOME   = :NOME,
-                                FONE   = :FONE
+                                FONE   = :FONE,
+                                EMAIL  = :EMAIL
                           WHERE ID_ALUNO = :ID_ALUNO';
 
     private $sql_del = 'DELETE 
                           FROM ALUNO 
                          WHERE ID_ALUNO = :ID_ALUNO';
+
+    private $sql_lst = 'SELECT ID_ALUNO, NOME, CPF, FONE, EMAIL FROM ALUNO';
+
+    private $sql_loc = 'SELECT COUNT(*) REGS FROM ALUNO WHERE ID_ALUNO = :ID_ALUNO';
+
+    private $sql_get = 'SELECT ID_ALUNO, NOME, CPF, FONE, EMAIL FROM ALUNO WHERE ID_ALUNO = :ID_ALUNO';
     //*************************************************
 
     //*************************************************
@@ -36,6 +45,7 @@ class Pessoa
     public function AlunoADD($CPF,
                              $NOME,
                              $FONE,
+                             $EMAIL,
                              &$erro)
     {
         try 
@@ -49,7 +59,8 @@ class Pessoa
                 $rec = $this->DB->Exec_SQL( array (
                                                 ':CPF'   => $CPF,
                                                 ':NOME'  => $NOME,
-                                                ':FONE'  => $FONE
+                                                ':FONE'  => $FONE,
+                                                ':EMAIL' => $EMAIL
                                             ));
                 
                 $erro = $this->DB->getErro();
@@ -67,13 +78,14 @@ class Pessoa
                              $CPF,
                              $NOME,
                              $FONE,
+                             $EMAIL,
                              &$erro)
     {
         try 
         {
             $this->DB = new Conn;
 
-            $sql = $this->sql_updMYSQL;
+            $sql = $this->sql_upd;
 
             if ($this->DB->PreparaSQL($sql))
             {
@@ -81,7 +93,8 @@ class Pessoa
                                         ':ID_ALUNO'  => $ID_ALUNO,
                                         ':CPF'       => $CPF,
                                         ':NOME'      => $NOME,
-                                        ':FONE'      => $FONE
+                                        ':FONE'      => $FONE,
+                                        ':EMAIL'     => $EMAIL
                                       ));
                 
                 $erro = $this->DB->getErro();
@@ -95,7 +108,7 @@ class Pessoa
         unset($this->DB);
     }
 
-    public function PessoaDEL($ID_ALUNO, &$erro)
+    public function AlunoDEL($ID_ALUNO, &$erro)
     {
         try 
         {
@@ -119,86 +132,59 @@ class Pessoa
         }
         unset($this->DB);
     }    
+
+    public function AlunoListar(&$erro)
+    {
+        try 
+        {
+            $this->DB = new Conn;
+
+            $sql = $this->sql_lst;
+
+            return $this->DB->OpenQuery($sql, null);
+        } catch(PDOException $e) 
+        {
+            echo 'Erro: ' . $e->getMessage();
+        }
+        unset($this->DB);
+    }    
+
+    public function AlunoExiste($ID_ALUNO, &$erro)
+    {
+        try 
+        {
+            $this->DB = new Conn;
+
+            $sql = $this->sql_loc;
+
+            return $this->DB->OpenQuery($sql, array (
+                                                    ':ID_ALUNO' => $ID_ALUNO
+                                                    ));
+        } catch(PDOException $e) 
+        {
+            echo 'Erro: ' . $e->getMessage();
+        }
+        unset($this->DB);
+    } 
+
+    public function AlunoGet($ID_ALUNO, &$erro)
+    {
+        try 
+        {
+            $this->DB = new Conn;
+
+            $sql = $this->sql_get;
+
+            return $this->DB->OpenQuery($sql, array (
+                                                    ':ID_ALUNO' => $ID_ALUNO
+                                                    ));
+        } catch(PDOException $e) 
+        {
+            echo 'Erro: ' . $e->getMessage();
+        }
+        unset($this->DB);
+    }     
     //*************************************************
 }
-/*$nome = $_POST['nome'];
-$endereco = $_POST['endereco'];
-$cpf = $_POST['cpf'];
-$idade = $_POST['idade'];
-$sexo = $_POST['sexo'];*/
-
-/*$DB = new Conn;
-
-$DB->adicionar_cliente($nome, $endereco, $idade, $cpf, $sexo);
-
-unset($DB);*/
-
-$P = new Pessoa;
-
-//INSERT 
-/*
-if ($P->PessoaADD(11167662,
-              'Rubens barichello',
-              '(19)99988-5555',
-              'S',
-              'semnenha',
-              'eu@uol.com.br',
-              'S',
-              'S',
-              'S',
-              'CTZ2-Marinha 289545-ALPHA',
-              'telefone da visinha 19-65899-9999 Joana Dark',
-              'Rua Godofredo Bartolomeu',
-              600,
-              'Bairro Boa Vista',
-              'Cidade de Deus',
-              13488760,
-              'bloco 20 apto 88',
-              'SP',
-              $erro
-    ) > 0)
-    echo 'Inserido com sucesso !';
-  else
-  echo 'Falhou ! <br/> Motivo:<br/>'.$erro;
-*/
-
-//UPDATE
-/*if ($P->PessoaUPD(30, //chave q está alterando
-              'Rubens barichello alterado',
-              '(19)99988-5555',
-              'S',
-              'eu@uol.com.br',
-              'S',
-              'S',
-              'S',
-              'CTZ2-Marinha 289545-ALPHA',
-              'telefone da visinha 19-65899-9999 Joana Dark',
-              'Rua Godofredo Bartolomeu',
-              600,
-              'Bairro Boa Vista',
-              'Cidade de Deus',
-              13488760,
-              'bloco 20 apto 88',
-              'SP',
-              $erro
-    ) > 0)
-    echo 'Alterado com sucesso !';
-  else
-  echo 'Falhou ! <br/> Motivo:<br/>'.$erro;*/
-
-//DELETE
-if ($P->PessoaDEL(30, //chave q está alterando
-              $erro
-    ) > 0)
-    echo 'Excluído com sucesso !';
-  else
-  {
-      if ($erro != "")
-        echo 'Falhou ! <br/> Motivo:<br/>'.$erro;
-      else
-        echo 'Registro não encontrado.<br/>';
-  }
-
-unset($P);  
 
 ?>

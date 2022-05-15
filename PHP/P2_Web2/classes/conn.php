@@ -9,7 +9,7 @@ class Conn
     private $servername = '127.0.0.1'; //enderço servidor
     private $username   = 'PROVAP2';      //usuario de banco
     private $password   = 'SENHA';     //senha do banco
-    private $dbname     = 'P2_WEB2E';//nome do banco
+    private $dbname     = 'P2_WEB2';//nome do banco
     //*************************************************
     
     private $conn; //guarda a conexão
@@ -100,21 +100,29 @@ class Conn
             $txt = $txt . "Erro: " .$e->getMessage();
             
             $this->erro = $txt;
-            
-            //if ($this->DEBUG)
-            //  die($this->erro);
 
             return 0;
         }
     }
 
-    public function OpenQuery($txt)
+    public function OpenQuery($txt, $CMPS)
     {
         $this->_SQL = $txt;
+        $this->erro = "";
 
         try 
         {
-            $result = $this->conn->query($this->_SQL);
+            if ($CMPS == null)
+                $result = $this->conn->query($this->_SQL);
+            else
+            {
+                if ($this->PreparaSQL($txt))
+                {
+                    $this->stmt->execute( $CMPS );
+                    
+                    $result = $this->stmt;//para usar o mesmo retorno
+                }
+            }
             
             return $result;
         } catch(PDOException $e) 
@@ -125,9 +133,6 @@ class Conn
             $txt = $txt . "Erro: " .$e->getMessage();
             
             $this->erro = $txt;
-            
-            //if ($this->DEBUG)
-            //    die($this->erro);
         }
     }
     //*************************************************

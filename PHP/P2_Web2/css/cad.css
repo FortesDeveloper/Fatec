@@ -1,0 +1,71 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(to right, rgb(25, 88, 151), rgb(8, 38, 68));
+}
+.box{
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    border-radius: 15px;
+    width: 40%;
+}
+fieldset{
+    border: 3px solid dodgerblue;
+}
+legend{
+    border: 1px solid dodgerblue;
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(18, 80, 143);
+    border-radius: 5px;
+    margin: 0 auto;
+}
+.inputBox{
+    position: relative;
+}
+.inputUser{
+    background: none;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    color: white;
+    font-size: 15px;
+    width: 100%;
+    letter-spacing: 2px;
+}
+.labelInput{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    pointer-events: none;
+    transition: .5s;
+}
+.inputUser:focus ~ .labelInput,
+.inputUser:valid ~ .labelInput{
+    top: -20px;
+    font-size: 12px;
+    color: dodgerblue;
+}
+.btn{
+    border: none;
+    width: 45%;
+    color: white;
+    padding: 5px;
+    display: inline-block;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.btnok{
+    background-color: green;
+}
+.btnvoltar{
+    background-color: red;
+    
+}        
+.btn:hover{
+    box-shadow: inset 200px 0 0 #00000055;
+}

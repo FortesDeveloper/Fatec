@@ -8,9 +8,10 @@ FLUSH PRIVILEGES;
 CREATE TABLE ALUNO
 (
     ID_ALUNO        INT         NOT NULL,
-    CPF              INT         NOT NULL,
-    NOME             VARCHAR(50) NOT NULL,
-    FONE             VARCHAR(30)
+    CPF             INT,
+    NOME            VARCHAR(50),
+    FONE            VARCHAR(30)
+    EMAIL           VARCHAR(100)
 );
 
 ALTER TABLE ALUNO ADD CONSTRAINT ALUNO_PK PRIMARY KEY(ID_ALUNO);
