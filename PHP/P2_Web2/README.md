@@ -1,7 +1,4 @@
 ## Cadastro de Alunos - P2 - Web2
-
-Cadastro de Alunos.
-
 Projeto para cadastrar alunos, Prova-P2 do Curso DSM<br>
 FATEC-Araras/SP <br>
 Ano 2022<br>
