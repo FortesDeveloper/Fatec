@@ -10,7 +10,7 @@ CREATE TABLE ALUNO
     ID_ALUNO        INT         NOT NULL,
     CPF             INT,
     NOME            VARCHAR(50),
-    FONE            VARCHAR(30)
+    FONE            VARCHAR(30),
     EMAIL           VARCHAR(100)
 );
 
