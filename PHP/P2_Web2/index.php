@@ -34,16 +34,20 @@
 
                      $P = new Aluno;
                      $linhas = $P->AlunoListar($erro);
-                     if ($erro != '')
+                     /*if ($erro != '')
                      {
                        if ($erro != "")
                            echo 'Falhou ! <br/> Motivo:<br/>'.$erro;
                        else
                            echo 'Registro não encontrado.<br/>';
                      }
-                     else
+                     else*/
+                     if ($erro == '')
                      {
-                       while ($lin = $linhas->fetch(PDO::FETCH_ASSOC)) 
+                       //while ($lin = $linhas->fetch(PDO::FETCH_ASSOC)) 
+                       //print_r($linhas);
+                       //die;
+                       foreach ($linhas as $lin) 
                        {    
                            echo "<tr>";
                            echo "<td>".$lin['ID_ALUNO']."</td>";
