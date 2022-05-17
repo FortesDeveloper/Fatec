@@ -141,7 +141,9 @@ class Aluno
 
             $sql = $this->sql_lst;
 
-            return $this->DB->OpenQuery($sql, null);
+            //return $this->DB->OpenQuery($sql, null);
+            $result = $this->DB->OpenQuery($sql, null);
+            return $result->fetchAll();
         } catch(PDOException $e) 
         {
             echo 'Erro: ' . $e->getMessage();
