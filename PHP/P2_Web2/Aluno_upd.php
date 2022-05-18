@@ -17,15 +17,14 @@
         else
         {
             $linhas = $P->AlunoGet($id, $erro);
-            if ($linhas->rowCount() > 0)
-                while ($lin = $linhas->fetch(PDO::FETCH_ASSOC)) 
-                {
-                    $id    = $lin['ID_ALUNO'];
-                    $nome  = $lin['NOME'];
-                    $cpf   = $lin['CPF'];
-                    $fone  = $lin['FONE'];
-                    $email = $lin['EMAIL'];
-                }
+            foreach ($linhas as $lin)
+            {
+                $id    = $lin['ID_ALUNO'];
+                $nome  = $lin['NOME'];
+                $cpf   = $lin['CPF'];
+                $fone  = $lin['FONE'];
+                $email = $lin['EMAIL'];
+            }
         }
     }
 
