@@ -141,7 +141,6 @@ class Aluno
 
             $sql = $this->sql_lst;
 
-            //return $this->DB->OpenQuery($sql, null);
             $result = $this->DB->OpenQuery($sql, null);
             return $result->fetchAll();
         } catch(PDOException $e) 
@@ -159,9 +158,10 @@ class Aluno
 
             $sql = $this->sql_loc;
 
-            return $this->DB->OpenQuery($sql, array (
+            $result = $this->DB->OpenQuery($sql, array (
                                                     ':ID_ALUNO' => $ID_ALUNO
                                                     ));
+            return $result->fetchAll();
         } catch(PDOException $e) 
         {
             echo 'Erro: ' . $e->getMessage();
@@ -177,9 +177,10 @@ class Aluno
 
             $sql = $this->sql_get;
 
-            return $this->DB->OpenQuery($sql, array (
+            $result = $this->DB->OpenQuery($sql, array (
                                                     ':ID_ALUNO' => $ID_ALUNO
                                                     ));
+            return $result->fetchAll();
         } catch(PDOException $e) 
         {
             echo 'Erro: ' . $e->getMessage();
